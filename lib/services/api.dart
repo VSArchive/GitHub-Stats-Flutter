@@ -19,12 +19,18 @@ class Api extends ChangeNotifier {
     }
   }
 
+  void clearResults() {
+    userFetchResult = [];
+    notifyListeners();
+  }
+
   Future<void> getSearchUserInfo(String username) async {
-    userFetchResult.isEmpty ? print(1) : userFetchResult.clear();
     if (username.isEmpty) {
+      userFetchResult.clear();
+      notifyListeners();
       throw "Please provide a name";
     } else {
-      final String url = "https://api.github.com/search/users?q=$username&per_page=3";
+      final String url = "https://api.github.com/search/users?q=$username";
       final responseData = await http.get(url);
       if (responseData.statusCode == 200) {
         final extractedUser =

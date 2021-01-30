@@ -20,7 +20,9 @@ class _HomeSearchState extends State<HomeSearch> {
     final api = Provider.of<Api>(context, listen: false);
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(title: Text('Search'),),
+        appBar: AppBar(
+          title: Text('Search'),
+        ),
         body: Container(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -33,27 +35,32 @@ class _HomeSearchState extends State<HomeSearch> {
                   height: 45,
                   child: CupertinoTextField(
                     onChanged: (value) {
+                      if (value.isEmpty || value.length == 0) {
+                        api.clearResults();
+                      }
                       try {
-                        api.userFetchResult = [];
                         api.getSearchUserInfo(value);
                       } catch (e) {
                         print(e.error);
                       }
                     },
-                    textInputAction: TextInputAction.go,
+                    onSubmitted: (value) {
+                      try {
+                        api.getSearchUserInfo(value);
+                      } catch (e) {
+                        print(e.error);
+                      }
+                    },
+                    textInputAction: TextInputAction.search,
                     controller: _username,
                     placeholder: "Search",
                     suffix: IconButton(
                       icon: Icon(
-                        Icons.search,
+                        Icons.clear,
                       ),
                       onPressed: () {
-                        try {
-                          api.userFetchResult = [];
-                          api.getSearchUserInfo(username);
-                        } catch (e) {
-                          print(e.error);
-                        }
+                        api.clearResults();
+                        _username.clear();
                       },
                     ),
                   ),
