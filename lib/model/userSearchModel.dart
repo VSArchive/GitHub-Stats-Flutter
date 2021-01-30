@@ -1,17 +1,42 @@
 // To parse this JSON data, do
 //
-//     final userModel = userModelFromJson(jsonString);
+//     final userSearchModel = userSearchModelFromJson(jsonString);
 
 import 'dart:convert';
 
-List<UserModel> userModelFromJson(String str) =>
-    List<UserModel>.from(json.decode(str).map((x) => UserModel.fromJson(x)));
+UserSearchModel userSearchModelFromJson(String str) =>
+    UserSearchModel.fromJson(json.decode(str));
 
-String userModelToJson(List<UserModel> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String userSearchModelToJson(UserSearchModel data) =>
+    json.encode(data.toJson());
 
-class UserModel {
-  UserModel({
+class UserSearchModel {
+  UserSearchModel({
+    this.totalCount,
+    this.incompleteResults,
+    this.items,
+  });
+
+  int totalCount;
+  bool incompleteResults;
+  List<Item> items;
+
+  factory UserSearchModel.fromJson(Map<String, dynamic> json) =>
+      UserSearchModel(
+        totalCount: json["total_count"],
+        incompleteResults: json["incomplete_results"],
+        items: List<Item>.from(json["items"].map((x) => Item.fromJson(x))),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "total_count": totalCount,
+        "incomplete_results": incompleteResults,
+        "items": List<dynamic>.from(items.map((x) => x.toJson())),
+      };
+}
+
+class Item {
+  Item({
     this.login,
     this.id,
     this.nodeId,
@@ -20,15 +45,16 @@ class UserModel {
     this.url,
     this.htmlUrl,
     this.followersUrl,
-    this.followingUrl,
-    this.gistsUrl,
-    this.starredUrl,
     this.subscriptionsUrl,
     this.organizationsUrl,
     this.reposUrl,
-    this.eventsUrl,
     this.receivedEventsUrl,
     this.type,
+    this.score,
+    this.followingUrl,
+    this.gistsUrl,
+    this.starredUrl,
+    this.eventsUrl,
     this.siteAdmin,
   });
 
@@ -40,18 +66,19 @@ class UserModel {
   String url;
   String htmlUrl;
   String followersUrl;
-  String followingUrl;
-  String gistsUrl;
-  String starredUrl;
   String subscriptionsUrl;
   String organizationsUrl;
   String reposUrl;
-  String eventsUrl;
   String receivedEventsUrl;
   String type;
+  int score;
+  String followingUrl;
+  String gistsUrl;
+  String starredUrl;
+  String eventsUrl;
   bool siteAdmin;
 
-  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
+  factory Item.fromJson(Map<String, dynamic> json) => Item(
         login: json["login"],
         id: json["id"],
         nodeId: json["node_id"],
@@ -60,15 +87,16 @@ class UserModel {
         url: json["url"],
         htmlUrl: json["html_url"],
         followersUrl: json["followers_url"],
-        followingUrl: json["following_url"],
-        gistsUrl: json["gists_url"],
-        starredUrl: json["starred_url"],
         subscriptionsUrl: json["subscriptions_url"],
         organizationsUrl: json["organizations_url"],
         reposUrl: json["repos_url"],
-        eventsUrl: json["events_url"],
         receivedEventsUrl: json["received_events_url"],
         type: json["type"],
+        score: json["score"],
+        followingUrl: json["following_url"],
+        gistsUrl: json["gists_url"],
+        starredUrl: json["starred_url"],
+        eventsUrl: json["events_url"],
         siteAdmin: json["site_admin"],
       );
 
@@ -81,15 +109,16 @@ class UserModel {
         "url": url,
         "html_url": htmlUrl,
         "followers_url": followersUrl,
-        "following_url": followingUrl,
-        "gists_url": gistsUrl,
-        "starred_url": starredUrl,
         "subscriptions_url": subscriptionsUrl,
         "organizations_url": organizationsUrl,
         "repos_url": reposUrl,
-        "events_url": eventsUrl,
         "received_events_url": receivedEventsUrl,
         "type": type,
+        "score": score,
+        "following_url": followingUrl,
+        "gists_url": gistsUrl,
+        "starred_url": starredUrl,
+        "events_url": eventsUrl,
         "site_admin": siteAdmin,
       };
 }
