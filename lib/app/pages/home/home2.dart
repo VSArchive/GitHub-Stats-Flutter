@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:github_stats/model/userSearchModel.dart';
@@ -33,6 +32,14 @@ class _HomeSearchState extends State<HomeSearch> {
                 Container(
                   height: 45,
                   child: CupertinoTextField(
+                    onChanged: (value) {
+                      try {
+                        api.userFetchResult = [];
+                        api.getSearchUserInfo(value);
+                      } catch (e) {
+                        print(e.error);
+                      }
+                    },
                     textInputAction: TextInputAction.go,
                     controller: _username,
                     placeholder: "Search",
@@ -42,6 +49,7 @@ class _HomeSearchState extends State<HomeSearch> {
                       ),
                       onPressed: () {
                         try {
+                          api.userFetchResult = [];
                           api.getSearchUserInfo(username);
                         } catch (e) {
                           print(e.error);
@@ -52,7 +60,7 @@ class _HomeSearchState extends State<HomeSearch> {
                 ),
                 Consumer<Api>(
                   builder: (context, _, child) {
-                    return api.userFetchResult.isEmpty
+                    return api.userFetchResult.isEmpty && username.isNotEmpty
                         ? Center(
                             child: Container(
                               height: MediaQuery.of(context).size.height * 0.2,
