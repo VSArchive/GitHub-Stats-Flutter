@@ -9,7 +9,7 @@ class MaterialBottomNavigationBar extends StatelessWidget {
     final nav = Provider.of<ChangeofPage>(context);
     return Container(
       decoration: BoxDecoration(
-        color: nav.navbackground,
+        color: Colors.white,
       ),
       child: Padding(
         padding: const EdgeInsets.only(left: 4.0, right: 4.0),

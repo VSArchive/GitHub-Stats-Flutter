@@ -25,12 +25,13 @@ class Api extends ChangeNotifier {
     if (username.isEmpty) {
       throw "Please provide a name";
     } else {
-      final String url = "https://api.github.com/search/users?q=$username";
+      final String url = "https://api.github.com/search/users?q=$username&per_page=3";
       final responseData = await http.get(url);
       if (responseData.statusCode == 200) {
         final extractedUser =
             jsonDecode(responseData.body) as Map<String, dynamic>;
         final x = UserSearchModel.fromJson(extractedUser);
+        userFetchResult.clear();
         x.items.forEach((element) {
           userFetchResult.add(element);
         });

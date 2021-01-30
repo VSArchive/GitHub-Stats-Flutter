@@ -21,7 +21,7 @@ class _HomeSearchState extends State<HomeSearch> {
     final api = Provider.of<Api>(context, listen: false);
     return SafeArea(
       child: Scaffold(
-        backgroundColor: CupertinoColors.darkBackgroundGray,
+        appBar: AppBar(title: Text('Search'),),
         body: Container(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -79,7 +79,7 @@ class _HomeSearchState extends State<HomeSearch> {
                                       title: Text(
                                         e.login,
                                         style: TextStyle(
-                                            fontSize: 17, color: Colors.white),
+                                            fontSize: 17, color: Colors.black),
                                       ),
                                     ),
                                   )
