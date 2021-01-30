@@ -6,6 +6,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text('GitHub Stats'),
         backgroundColor: CupertinoColors.activeBlue,
         actions: [
           IconButton(

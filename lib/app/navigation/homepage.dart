@@ -16,9 +16,6 @@ class MaterialHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final nav = Provider.of<ChangeofPage>(context);
     return Scaffold(
-      appBar: AppBar(
-        title: Text('GitHub Stats'),
-      ),
       body: children[nav.pageIndex],
       bottomNavigationBar: MaterialBottomNavigationBar(),
     );
