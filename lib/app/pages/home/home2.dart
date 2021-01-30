@@ -33,6 +33,14 @@ class _HomeSearchState extends State<HomeSearch> {
                 Container(
                   height: 45,
                   child: CupertinoTextField(
+                    onChanged: (value) {
+                      try {
+                        api.userFetchResult = [];
+                        api.getSearchUserInfo(value);
+                      } catch (e) {
+                        print(e.error);
+                      }
+                    },
                     textInputAction: TextInputAction.go,
                     controller: _username,
                     placeholder: "Search",
@@ -42,6 +50,7 @@ class _HomeSearchState extends State<HomeSearch> {
                       ),
                       onPressed: () {
                         try {
+                          api.userFetchResult = [];
                           api.getSearchUserInfo(username);
                         } catch (e) {
                           print(e.error);
