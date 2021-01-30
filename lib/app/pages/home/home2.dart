@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:github_stats/model/userSearchModel.dart';
@@ -61,7 +60,7 @@ class _HomeSearchState extends State<HomeSearch> {
                 ),
                 Consumer<Api>(
                   builder: (context, _, child) {
-                    return api.userFetchResult.isEmpty
+                    return api.userFetchResult.isEmpty && username.isNotEmpty
                         ? Center(
                             child: Container(
                               height: MediaQuery.of(context).size.height * 0.2,

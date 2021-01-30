@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:github_stats/model/userSearchModel.dart';
 import 'package:http/http.dart' as http;
-import 'package:rxdart/rxdart.dart';
 
 class Api extends ChangeNotifier {
   final String key;
