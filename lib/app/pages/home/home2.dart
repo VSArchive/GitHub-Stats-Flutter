@@ -11,58 +11,86 @@ class HomeSearch extends StatefulWidget {
 }
 
 class _HomeSearchState extends State<HomeSearch> {
+  bool isSpin = false;
   TextEditingController _username = TextEditingController();
 
   String get username => _username.text;
 
   @override
   Widget build(BuildContext context) {
-    final api = Provider.of<Api>(context);
-
-    return Scaffold(
-      backgroundColor: CupertinoColors.darkBackgroundGray,
-      body: Container(
-        child: ListView(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                height: 45,
-                child: CupertinoTextField(
-                  controller: _username,
-                  placeholder: "Search",
-                  suffix: IconButton(
-                    icon: Icon(
-                      Icons.search,
+    final api = Provider.of<Api>(context, listen: false);
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: CupertinoColors.darkBackgroundGray,
+        body: Container(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Container(
+                  width: double.infinity,
+                ),
+                Container(
+                  height: 45,
+                  child: CupertinoTextField(
+                    textInputAction: TextInputAction.go,
+                    controller: _username,
+                    placeholder: "Search",
+                    suffix: IconButton(
+                      icon: Icon(
+                        Icons.search,
+                      ),
+                      onPressed: () {
+                        try {
+                          api.getSearchUserInfo(username);
+                        } catch (e) {
+                          print(e.error);
+                        }
+                      },
                     ),
-                    onPressed: () => print(1),
                   ),
                 ),
-              ),
+                Consumer<Api>(
+                  builder: (context, _, child) {
+                    return api.userFetchResult.isEmpty
+                        ? Center(
+                            child: Container(
+                              height: MediaQuery.of(context).size.height * 0.2,
+                              width: MediaQuery.of(context).size.width * 0.9,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(12.0),
+                              ),
+                              child: Center(
+                                  child: Text(
+                                "No User Found",
+                              )),
+                            ),
+                          )
+                        : Expanded(
+                            child: ListView(
+                              children: api.userFetchResult
+                                  .map(
+                                    (Item e) => ListTile(
+                                      leading: CircleAvatar(
+                                        backgroundImage:
+                                            NetworkImage(e.avatarUrl),
+                                      ),
+                                      title: Text(
+                                        e.login,
+                                        style: TextStyle(
+                                            fontSize: 17, color: Colors.white),
+                                      ),
+                                    ),
+                                  )
+                                  .toList(),
+                            ),
+                          );
+                  },
+                ),
+              ],
             ),
-            CupertinoButton(
-              child: Text('GetInfo'),
-              onPressed: () => api.getSearchUserInfo(username),
-            ),
-            Container(
-                height: 600,
-                child: ListView(
-                  children: api.userFetchResult
-                      .map(
-                        (Item e) => ListTile(
-                          leading: CircleAvatar(
-                            backgroundImage:
-                                CachedNetworkImageProvider(e.avatarUrl),
-                          ),
-                          title: Text(
-                            e.login,
-                            style: TextStyle(fontSize: 17, color: Colors.white),
-                          ),
-                        ),
-                      )
-                      .toList(),
-                )),
-          ],
+          ),
         ),
       ),
     );
