@@ -1,16 +1,22 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:github_stats/model/userSearchModel.dart';
 import 'package:http/http.dart' as http;
 
+///this is the api Logic class
 class Api extends ChangeNotifier {
-  final String key;
-  Api({this.key});
+  final String userNameOfSignedInUser;
+  Api({this.userNameOfSignedInUser});
+
+  ///this List takse the userResult from the search query;
   List<Item> userFetchResult = [];
   String previousSearch;
+
+  ///for getting the userInfo;
   Future getUserInfo() async {
-    const String url = "https://api.github.com/users/vijayshankarrealdeal";
+    final String url = "https://api.github.com/users/$userNameOfSignedInUser";
     final responseData = await http.get(url);
     if (responseData.statusCode == 200) {
       print(responseData.body);
@@ -31,6 +37,7 @@ class Api extends ChangeNotifier {
     notifyListeners();
   }
 
+  ///this function  will get user and show them on screen.
   Future<void> getSearchUserInfo(String username) async {
     if (username.isEmpty) {
       userFetchResult.clear();
