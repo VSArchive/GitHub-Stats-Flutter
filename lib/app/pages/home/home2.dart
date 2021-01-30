@@ -20,9 +20,6 @@ class _HomeSearchState extends State<HomeSearch> {
     final api = Provider.of<Api>(context, listen: false);
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: Text('Search'),
-        ),
         body: Container(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -35,11 +32,13 @@ class _HomeSearchState extends State<HomeSearch> {
                   height: 45,
                   child: CupertinoTextField(
                     onChanged: (value) {
+                      api.previousSearch = value;
                       if (value.isEmpty || value.length == 0) {
                         api.clearResults();
                       }
                       try {
                         api.getSearchUserInfo(value);
+                        api.clearTop(value);
                       } catch (e) {
                         print(e.error);
                       }
@@ -47,6 +46,7 @@ class _HomeSearchState extends State<HomeSearch> {
                     onSubmitted: (value) {
                       try {
                         api.getSearchUserInfo(value);
+                        api.clearTop(value);
                       } catch (e) {
                         print(e.error);
                       }

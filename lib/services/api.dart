@@ -8,7 +8,7 @@ class Api extends ChangeNotifier {
   final String key;
   Api({this.key});
   List<Item> userFetchResult = [];
-
+  String previousSearch;
   Future getUserInfo() async {
     const String url = "https://api.github.com/users/vijayshankarrealdeal";
     final responseData = await http.get(url);
@@ -16,6 +16,13 @@ class Api extends ChangeNotifier {
       print(responseData.body);
     } else {
       print(responseData.statusCode);
+    }
+  }
+
+  void clearTop(String value) {
+    if (value != previousSearch) {
+      userFetchResult.reversed;
+      notifyListeners();
     }
   }
 
