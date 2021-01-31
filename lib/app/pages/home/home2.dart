@@ -34,24 +34,37 @@ class _HomeSearchState extends State<HomeSearch> {
               Container(
                 height: 45,
                 child: CupertinoTextField(
+                  prefix: Padding(
+                    padding: const EdgeInsets.only(left: 5.0),
+                    child: Icon(
+                      Icons.search_outlined,
+                      color: Colors.grey,
+                      size: 18,
+                    ),
+                  ),
                   onChanged: (value) {
                     api.previousSearch = value;
-                    if (value.isEmpty || value.length == 0) {
+                    if (value.isEmpty || value.trim().length == 0) {
                       api.clearResults();
-                    }
-                    try {
-                      api.getSearchUserInfo(value);
-                      api.clearTop(value);
-                    } catch (e) {
-                      print(e.error);
+                    } else {
+                      try {
+                        api.getSearchUserInfo(value);
+                        api.clearTop(value);
+                      } catch (e) {
+                        print(e.error);
+                      }
                     }
                   },
                   onSubmitted: (value) {
-                    try {
-                      api.getSearchUserInfo(value);
-                      api.clearTop(value);
-                    } catch (e) {
-                      print(e.error);
+                    if (value.isEmpty || value.trim().length == 0) {
+                      api.clearResults();
+                    } else {
+                      try {
+                        api.getSearchUserInfo(value);
+                        api.clearTop(value);
+                      } catch (e) {
+                        print(e.error);
+                      }
                     }
                   },
                   textInputAction: TextInputAction.search,
@@ -80,9 +93,10 @@ class _HomeSearchState extends State<HomeSearch> {
                               borderRadius: BorderRadius.circular(12.0),
                             ),
                             child: Center(
-                                child: Text(
-                              "No User Found",
-                            )),
+                              child: Text(
+                                "No User Found",
+                              ),
+                            ),
                           ),
                         )
                       : Expanded(
@@ -91,7 +105,11 @@ class _HomeSearchState extends State<HomeSearch> {
                                 .map(
                                   (Item e) => ListTile(
                                     onTap: () => {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => Account(e.login)))
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  Account(e.login)))
                                     },
                                     leading: CircleAvatar(
                                       backgroundImage:
