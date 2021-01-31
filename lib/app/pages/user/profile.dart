@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 class Profile extends StatelessWidget {
   String userName;
 
-  Profile(String userName){
+  Profile(String userName) {
     this.userName = userName;
   }
 
@@ -18,6 +18,8 @@ class Profile extends StatelessWidget {
   String email = "";
   String blog = "";
   String bio = "";
+  String followers = "";
+  String following = "";
   UserModel data;
 
   Future<String> getUserInfo() async {
@@ -27,31 +29,33 @@ class Profile extends StatelessWidget {
 
     data = UserModel.fromJson(extractedUser);
 
-    if (data.login == null) {
+    print(url);
+
+    if (data.login == null || data.login.trim() == "") {
       login = "Not Visible";
     } else {
       login = data.login;
     }
 
-    if (data.name == null) {
+    if (data.name == null || data.name.trim() == "") {
       name = "Not Visible";
     } else {
       name = data.name;
     }
 
-    if (data.avatarUrl == null) {
+    if (data.avatarUrl == null || data.avatarUrl.trim() == "") {
       avatarUrl = "Not Visible";
     } else {
       avatarUrl = data.avatarUrl;
     }
 
-    if (data.location == null) {
+    if (data.location == null || data.location.trim() == "") {
       location = "Not Visible";
     } else {
       location = data.location;
     }
 
-    if (data.email == null) {
+    if (data.email == null || data.email.trim() == "") {
       email = "Not Visible";
     } else {
       email = data.email;
@@ -63,10 +67,22 @@ class Profile extends StatelessWidget {
       blog = data.blog;
     }
 
-    if (data.bio == null) {
+    if (data.bio == null || data.bio.trim() == "") {
       bio = "Not Visible";
     } else {
       bio = data.bio;
+    }
+
+    if (data.followers == null || data.followers.trim() == "") {
+      followers = "Not Visible";
+    } else {
+      followers = data.followers;
+    }
+
+    if (data.following == null || data.following.trim() == "") {
+      following = "Not Visible";
+    } else {
+      following = data.following;
     }
 
     return url;
@@ -182,11 +198,33 @@ class Profile extends StatelessWidget {
                       ),
                     ),
                   ),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.person_outlined,
+                            color: Colors.grey,
+                            size: 20,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Text(
+                              "$followers Followers | $following Following",
+                              style: TextStyle(fontSize: 18),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             );
           } else {
-            return CircularProgressIndicator.adaptive();
+            return CircularProgressIndicator();
           }
         });
   }

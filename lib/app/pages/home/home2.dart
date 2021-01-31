@@ -22,6 +22,8 @@ class _HomeSearchState extends State<HomeSearch> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Search'),
+        backgroundColor: Colors.black87,
+        brightness: Brightness.dark,
       ),
       body: Container(
         child: Padding(

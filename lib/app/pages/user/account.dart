@@ -6,17 +6,20 @@ import 'package:github_stats/app/pages/user/profile.dart';
 import 'graph2.dart';
 
 class Account extends StatelessWidget {
-
   String userName;
 
-  Account(String login){
+  Account(String login) {
     userName = login;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Profile'),),
+      appBar: AppBar(
+        title: Text('Profile'),
+        backgroundColor: Colors.black87,
+        brightness: Brightness.dark,
+      ),
       body: Column(
         children: [
           Expanded(

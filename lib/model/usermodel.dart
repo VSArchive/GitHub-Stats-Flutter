@@ -34,6 +34,8 @@ class UserModel {
     this.email,
     this.blog,
     this.bio,
+    this.followers,
+    this.following,
     this.siteAdmin,
   });
 
@@ -59,6 +61,8 @@ class UserModel {
   String email;
   String blog;
   String bio;
+  String followers;
+  String following;
   bool siteAdmin;
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
@@ -85,6 +89,8 @@ class UserModel {
     email: json["email"],
     location: json["location"],
     bio: json["bio"],
+    followers: json["followers"],
+    following: json["following"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -111,5 +117,7 @@ class UserModel {
     "email": email,
     "blog": blog,
     "bio": bio,
+    "followers": followers,
+    "following": following,
   };
 }
