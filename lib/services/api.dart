@@ -14,17 +14,6 @@ class Api extends ChangeNotifier {
   List<Item> userFetchResult = [];
   String previousSearch;
 
-  ///for getting the userInfo;
-  Future getUserInfo() async {
-    final String url = "https://api.github.com/users/$userNameOfSignedInUser";
-    final responseData = await http.get(url);
-    if (responseData.statusCode == 200) {
-      print(responseData.body);
-    } else {
-      print(responseData.statusCode);
-    }
-  }
-
   void clearTop(String value) {
     if (value != previousSearch) {
       userFetchResult.reversed;
@@ -44,7 +33,7 @@ class Api extends ChangeNotifier {
       notifyListeners();
       throw "Please provide a name";
     } else {
-      final String url = "https://api.github.com/search/users?q=$username";
+      final String url = "https://api.github.com/search/users?q=$username&per_page=5";
       final responseData = await http.get(url);
       if (responseData.statusCode == 200) {
         final extractedUser =
