@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:github_stats/model/usermodel.dart';
 import 'package:http/http.dart' as http;
 
-class Profile extends StatefulWidget {
-  @override
-  _ProfileState createState() => _ProfileState();
-}
+class Profile extends StatelessWidget {
+  String userName;
 
-class _ProfileState extends State<Profile> {
-  String username = "";
+  Profile(String userName){
+    this.userName = userName;
+  }
+
+  String login = "";
   String name = "";
   String avatarUrl = "";
   String location = "";
@@ -20,23 +21,53 @@ class _ProfileState extends State<Profile> {
   UserModel data;
 
   Future<String> getUserInfo() async {
-    const String url = "https://api.github.com/users/vineelsai26";
+    String url = "https://api.github.com/users/$userName";
     final responseData = await http.get(url);
     final extractedUser = jsonDecode(responseData.body) as Map<String, dynamic>;
 
     data = UserModel.fromJson(extractedUser);
 
-    username = data.login;
-    name = data.name;
-    avatarUrl = data.avatarUrl;
-    location = data.location;
+    if (data.login == null) {
+      login = "Not Visible";
+    } else {
+      login = data.login;
+    }
+
+    if (data.name == null) {
+      name = "Not Visible";
+    } else {
+      name = data.name;
+    }
+
+    if (data.avatarUrl == null) {
+      avatarUrl = "Not Visible";
+    } else {
+      avatarUrl = data.avatarUrl;
+    }
+
+    if (data.location == null) {
+      location = "Not Visible";
+    } else {
+      location = data.location;
+    }
+
     if (data.email == null) {
       email = "Not Visible";
     } else {
       email = data.email;
     }
-    blog = data.blog;
-    bio = data.bio;
+
+    if (data.blog == null || data.blog.trim() == "") {
+      blog = "Not Visible";
+    } else {
+      blog = data.blog;
+    }
+
+    if (data.bio == null) {
+      bio = "Not Visible";
+    } else {
+      bio = data.bio;
+    }
 
     return url;
   }
@@ -67,7 +98,7 @@ class _ProfileState extends State<Profile> {
                                   fontSize: 30, fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              username,
+                              login,
                               style: TextStyle(fontSize: 15),
                             ),
                           ],

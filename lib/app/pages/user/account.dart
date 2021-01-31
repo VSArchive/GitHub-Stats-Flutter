@@ -6,6 +6,13 @@ import 'package:github_stats/app/pages/user/profile.dart';
 import 'graph2.dart';
 
 class Account extends StatelessWidget {
+
+  String userName;
+
+  Account(String login){
+    userName = login;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +25,7 @@ class Account extends StatelessWidget {
                 Expanded(
                   child: ListView(
                     children: [
-                      Profile(),
+                      Profile(userName),
                       Graph1(),
                       Graph2(),
                       Graph3(),

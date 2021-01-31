@@ -15,7 +15,7 @@ class MaterialHomePage extends StatelessWidget {
             create: (context) => UserModel(), child: HomeSearch());
       },
     ),
-    Account(),
+    Account('vineelsai26'),
   ];
 
   @override
