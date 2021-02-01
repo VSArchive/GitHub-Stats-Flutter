@@ -61,8 +61,8 @@ class UserModel {
   String email;
   String blog;
   String bio;
-  String followers;
-  String following;
+  int followers;
+  int following;
   bool siteAdmin;
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(

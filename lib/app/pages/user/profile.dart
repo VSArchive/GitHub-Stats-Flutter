@@ -18,8 +18,8 @@ class Profile extends StatelessWidget {
   String email = "";
   String blog = "";
   String bio = "";
-  String followers = "";
-  String following = "";
+  int followers = 0;
+  int following = 0;
   UserModel data;
 
   Future<String> getUserInfo() async {
@@ -73,14 +73,14 @@ class Profile extends StatelessWidget {
       bio = data.bio;
     }
 
-    if (data.followers == null || data.followers.trim() == "") {
-      followers = "Not Visible";
+    if (data.followers == null) {
+      followers = 0;
     } else {
       followers = data.followers;
     }
 
-    if (data.following == null || data.following.trim() == "") {
-      following = "Not Visible";
+    if (data.following == null) {
+      following = 0;
     } else {
       following = data.following;
     }
