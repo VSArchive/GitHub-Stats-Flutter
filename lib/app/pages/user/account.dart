@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:github_stats/app/pages/user/graph1.dart';
 import 'package:github_stats/app/pages/user/graph2.dart';
@@ -28,7 +27,16 @@ class Account extends StatelessWidget {
                 Expanded(
                   child: ListView(
                     children: [
-                      Profile(),
+                      FutureBuilder(
+                        future: api.getUserInfo(userName),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            return Profile(data: snapshot.data);
+                          } else {
+                            return Center(child: CircularProgressIndicator());
+                          }
+                        },
+                      ),
                       Graph1(),
                       Graph2(),
                       Graph3(),

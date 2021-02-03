@@ -110,14 +110,8 @@ class _HomeSearchState extends State<HomeSearch> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) =>
-                                          FutureProvider<UserModel>.value(
-                                        value: api.getUserInfo(
-                                            api.userFetchResult[i].login),
-                                        child: Account(
-                                          userName:
-                                              api.userFetchResult[i].login,
-                                        ),
+                                      builder: (context) => Account(
+                                        userName: api.userFetchResult[i].login,
                                       ),
                                     ),
                                   )

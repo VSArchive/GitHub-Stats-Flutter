@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:github_stats/model/usermodel.dart';
-import 'package:provider/provider.dart';
 
 class Profile extends StatelessWidget {
+  final UserModel data;
+
+  const Profile({Key key, this.data}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final data = Provider.of<UserModel>(context);
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Column(

@@ -10,41 +10,19 @@ import 'package:http/http.dart' as http;
 class Api extends ChangeNotifier {
   ///this List takse the userResult from the search query;
   List<Item> userFetchResult = [];
-
-  ///user data
-
-  //
-
   UserModel userModelFromJson(String str) =>
       UserModel.fromJson(json.decode(str));
-
-  //
-  //
   String previousSearch;
-
-  void clearTop(String value) {
-    if (value != previousSearch) {
-      userFetchResult.reversed;
-      notifyListeners();
-    }
-  }
-
-  void clearResults() {
-    userFetchResult = [];
-    notifyListeners();
-  }
 
   //get Username
   Future<UserModel> getUserInfo(String userName) async {
-    UserModel userData;
     String url = "https://api.github.com/users/$userName";
     final responseData = await http.get(url);
     if (responseData.statusCode == 200) {
-      userData = userModelFromJson(responseData.body);
+      return userModelFromJson(responseData.body);
     } else {
       print(responseData.statusCode);
     }
-    return userData;
   }
 
   ///this function  will get user and show them on screen.
@@ -70,6 +48,18 @@ class Api extends ChangeNotifier {
         throw responseData.statusCode;
       }
     }
+    notifyListeners();
+  }
+
+  void clearTop(String value) {
+    if (value != previousSearch) {
+      userFetchResult.reversed;
+      notifyListeners();
+    }
+  }
+
+  void clearResults() {
+    userFetchResult = [];
     notifyListeners();
   }
 }
