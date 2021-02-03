@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:github_stats/app/pages/user/account.dart';
-import 'package:github_stats/model/userSearchModel.dart';
+import 'package:github_stats/model/usermodel.dart';
 import 'package:github_stats/services/api.dart';
 import 'package:provider/provider.dart';
 
@@ -102,29 +102,37 @@ class _HomeSearchState extends State<HomeSearch> {
                           ),
                         )
                       : Expanded(
-                          child: ListView(
-                            children: api.userFetchResult
-                                .map(
-                                  (Item e) => ListTile(
-                                    onTap: () => {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  Account(e.login)))
-                                    },
-                                    leading: CircleAvatar(
-                                      backgroundImage:
-                                          NetworkImage(e.avatarUrl),
+                          child: ListView.builder(
+                            itemCount: api.userFetchResult.length,
+                            itemBuilder: (context, i) {
+                              return ListTile(
+                                onTap: () => {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          FutureProvider<UserModel>.value(
+                                        value: api.getUserInfo(
+                                            api.userFetchResult[i].login),
+                                        child: Account(
+                                          userName:
+                                              api.userFetchResult[i].login,
+                                        ),
+                                      ),
                                     ),
-                                    title: Text(
-                                      e.login,
-                                      style: TextStyle(
-                                          fontSize: 17, color: Colors.black),
-                                    ),
-                                  ),
-                                )
-                                .toList(),
+                                  )
+                                },
+                                leading: CircleAvatar(
+                                  backgroundImage: NetworkImage(
+                                      api.userFetchResult[i].avatarUrl),
+                                ),
+                                title: Text(
+                                  api.userFetchResult[i].login,
+                                  style: TextStyle(
+                                      fontSize: 17, color: Colors.black),
+                                ),
+                              );
+                            },
                           ),
                         );
                 },

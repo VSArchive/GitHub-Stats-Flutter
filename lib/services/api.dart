@@ -3,15 +3,23 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:github_stats/model/userSearchModel.dart';
+import 'package:github_stats/model/usermodel.dart';
 import 'package:http/http.dart' as http;
 
 ///this is the api Logic class
 class Api extends ChangeNotifier {
-  final String userNameOfSignedInUser;
-  Api({this.userNameOfSignedInUser});
-
   ///this List takse the userResult from the search query;
   List<Item> userFetchResult = [];
+
+  ///user data
+
+  //
+
+  UserModel userModelFromJson(String str) =>
+      UserModel.fromJson(json.decode(str));
+
+  //
+  //
   String previousSearch;
 
   void clearTop(String value) {
@@ -26,6 +34,19 @@ class Api extends ChangeNotifier {
     notifyListeners();
   }
 
+  //get Username
+  Future<UserModel> getUserInfo(String userName) async {
+    UserModel userData;
+    String url = "https://api.github.com/users/$userName";
+    final responseData = await http.get(url);
+    if (responseData.statusCode == 200) {
+      userData = userModelFromJson(responseData.body);
+    } else {
+      print(responseData.statusCode);
+    }
+    return userData;
+  }
+
   ///this function  will get user and show them on screen.
   Future<void> getSearchUserInfo(String username) async {
     if (username.isEmpty) {
@@ -33,7 +54,8 @@ class Api extends ChangeNotifier {
       notifyListeners();
       throw "Please provide a name";
     } else {
-      final String url = "https://api.github.com/search/users?q=$username&per_page=5";
+      final String url =
+          "https://api.github.com/search/users?q=$username&per_page=5";
       final responseData = await http.get(url);
       if (responseData.statusCode == 200) {
         final extractedUser =

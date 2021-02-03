@@ -12,10 +12,12 @@ class MaterialHomePage extends StatelessWidget {
     Builder(
       builder: (context) {
         return Provider<UserModel>(
-            create: (context) => UserModel(), child: HomeSearch());
+          create: (context) => UserModel(),
+          child: HomeSearch(),
+        );
       },
     ),
-    Account('vineelsai26'),
+    Account(),
   ];
 
   @override
