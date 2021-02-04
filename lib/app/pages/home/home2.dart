@@ -1,7 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:github_stats/app/pages/user/account.dart';
-import 'package:github_stats/model/usermodel.dart';
 import 'package:github_stats/services/api.dart';
 import 'package:provider/provider.dart';
 
@@ -19,6 +19,7 @@ class _HomeSearchState extends State<HomeSearch> {
   @override
   Widget build(BuildContext context) {
     final api = Provider.of<Api>(context, listen: false);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Search'),
@@ -129,6 +130,12 @@ class _HomeSearchState extends State<HomeSearch> {
                             },
                           ),
                         );
+                },
+              ),
+              RaisedButton(
+                onPressed: () => {
+                  api.signInWithGitHub(context).whenComplete(
+                      () => {print(FirebaseAuth.instance.currentUser)})
                 },
               ),
             ],

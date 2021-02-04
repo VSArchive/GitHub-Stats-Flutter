@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:github_stats/model/userSearchModel.dart';
 import 'package:github_stats/model/usermodel.dart';
 import 'package:http/http.dart' as http;
+import 'package:github_sign_in/github_sign_in.dart';
 
 ///this is the api Logic class
 class Api extends ChangeNotifier {
@@ -61,5 +63,18 @@ class Api extends ChangeNotifier {
   void clearResults() {
     userFetchResult = [];
     notifyListeners();
+  }
+
+  Future<UserCredential> signInWithGitHub(context) async {
+    final GitHubSignIn gitHubSignIn = GitHubSignIn(
+        clientId: "clientId",
+        clientSecret: "clientSecret",
+        redirectUrl: 'https://github-stats-vs.firebaseapp.com/__/auth/handler');
+
+    final result = await gitHubSignIn.signIn(context);
+
+    final AuthCredential githubAuthCredential = GithubAuthProvider.credential(result.token);
+
+    return await FirebaseAuth.instance.signInWithCredential(githubAuthCredential);
   }
 }
