@@ -8,7 +8,6 @@ class Graph3 extends StatelessWidget {
       height: MediaQuery.of(context).size.height * 0.3,
       width: MediaQuery.of(context).size.width * 0.7,
       decoration: BoxDecoration(
-        //color: CupertinoColors.darkBackgroundGray.withOpacity(0.3),
         borderRadius: BorderRadius.circular(12.0),
       ),
       child: Padding(
@@ -16,6 +15,7 @@ class Graph3 extends StatelessWidget {
         child: charts.BarChart(
           _createSampleData2(),
           animate: true,
+          animationDuration: Duration(seconds: 2),
         ),
       ),
     );
