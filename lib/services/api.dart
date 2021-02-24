@@ -1,26 +1,30 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:github_stats/model/repoDataModel.dart';
 import 'package:github_stats/model/userSearchModel.dart';
 import 'package:github_stats/model/usermodel.dart';
 import 'package:http/http.dart' as http;
-import 'package:github_sign_in/github_sign_in.dart';
 
 ///this is the api Logic class
 class Api extends ChangeNotifier {
+  Api({this.userNameOfSignedInUser, this.username});
+  final String userNameOfSignedInUser;
+  final String username;
+
   ///this List takse the userResult from the search query;
   List<Item> userFetchResult = [];
   List<RepoDataModel> userRepoDetails = [];
+
   UserModel userModelFromJson(String str) =>
       UserModel.fromJson(json.decode(str));
   String previousSearch;
 
   //get Username
-  Future<UserModel> getUserInfo(String userName) async {
-    String url = "https://api.github.com/users/$userName";
+  // ignore: missing_return
+  Future<UserModel> getUserInfo() async {
+    String url = "https://api.github.com/users/$username";
     final responseData = await http.get(url);
     if (responseData.statusCode == 200) {
       return userModelFromJson(responseData.body);
@@ -55,13 +59,12 @@ class Api extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<List<RepoDataModel>> getUserRepoInfo(String username) async {
+  Future<List<RepoDataModel>> getUserRepoInfo() async {
     if (username.isEmpty) {
       userRepoDetails.clear();
       throw "No Repos Found";
     } else {
-      final String url =
-          "https://api.github.com/users/$username/repos";
+      final String url = "https://api.github.com/users/$username/repos";
       final responseData = await http.get(url);
       if (responseData.statusCode == 200) {
         // Do conversion here
@@ -82,18 +85,5 @@ class Api extends ChangeNotifier {
   void clearResults() {
     userFetchResult = [];
     notifyListeners();
-  }
-
-  Future<UserCredential> signInWithGitHub(context) async {
-    final GitHubSignIn gitHubSignIn = GitHubSignIn(
-        clientId: "clientId",
-        clientSecret: "clientSecret",
-        redirectUrl: 'https://github-stats-vs.firebaseapp.com/__/auth/handler');
-
-    final result = await gitHubSignIn.signIn(context);
-
-    final AuthCredential githubAuthCredential = GithubAuthProvider.credential(result.token);
-
-    return await FirebaseAuth.instance.signInWithCredential(githubAuthCredential);
   }
 }

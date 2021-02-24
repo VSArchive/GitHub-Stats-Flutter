@@ -14,7 +14,7 @@ class Profile extends StatelessWidget {
           Row(
             children: [
               CircleAvatar(
-                backgroundImage: NetworkImage(data.avatarUrl),
+                backgroundImage: NetworkImage(data.url),
                 radius: 36,
               ),
               Padding(

@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:github_stats/app/pages/user/account.dart';
@@ -132,12 +131,12 @@ class _HomeSearchState extends State<HomeSearch> {
                         );
                 },
               ),
-              RaisedButton(
-                onPressed: () => {
-                  api.signInWithGitHub(context).whenComplete(
-                      () => {print(FirebaseAuth.instance.currentUser)})
-                },
-              ),
+              // RaisedButton(
+              //   onPressed: () => {
+              //     api.signInWithGitHub(context).whenComplete(
+              //         () => {print(FirebaseAuth.instance.currentUser)})
+              //   },
+              // ),
             ],
           ),
         ),

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:github_stats/model/repoDataModel.dart';
-import 'package:github_stats/services/api.dart';
-import 'package:provider/provider.dart';
 
+// ignore: must_be_immutable
 class Graph3 extends StatelessWidget {
   RepoDataModel data;
 
