@@ -8,6 +8,7 @@ import 'package:github_stats/app/navigation/change.dart';
 import 'package:github_stats/app/pages/user/account.dart';
 
 class MaterialHomePage extends StatelessWidget {
+
   final List<Widget> children = [
     Builder(
       builder: (context) {

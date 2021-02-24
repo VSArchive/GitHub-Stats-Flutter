@@ -16,6 +16,7 @@ class Graph1 extends StatelessWidget {
         child: charts.BarChart(
           createSampleData3(),
           animate: true,
+          animationDuration: Duration(seconds: 2),
           barGroupingType: charts.BarGroupingType.groupedStacked,
         ),
       ),

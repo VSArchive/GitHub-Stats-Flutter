@@ -16,6 +16,7 @@ class Graph2 extends StatelessWidget {
         child: charts.LineChart(
           _createSampleData(),
           animate: true,
+          animationDuration: Duration(seconds: 2),
         ),
       ),
     );

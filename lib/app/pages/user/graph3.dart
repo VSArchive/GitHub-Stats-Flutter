@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:github_stats/model/repoDataModel.dart';
+import 'package:github_stats/services/api.dart';
+import 'package:provider/provider.dart';
 
 class Graph3 extends StatelessWidget {
+  RepoDataModel data;
+
+  Graph3({Key key, this.data}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -15,7 +21,7 @@ class Graph3 extends StatelessWidget {
         child: charts.BarChart(
           _createSampleData2(),
           animate: true,
-          animationDuration: Duration(seconds: 2),
+          animationDuration: Duration(seconds: 1),
         ),
       ),
     );

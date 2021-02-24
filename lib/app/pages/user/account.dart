@@ -39,7 +39,16 @@ class Account extends StatelessWidget {
                       ),
                       Graph1(),
                       Graph2(),
-                      Graph3(),
+                      FutureBuilder(
+                        future: api.getUserRepoInfo('vineelsai26'),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            return Graph3(data: snapshot.data);
+                          } else {
+                            return Center(child: CircularProgressIndicator());
+                          }
+                        },
+                      ),
                     ],
                   ),
                 ),
