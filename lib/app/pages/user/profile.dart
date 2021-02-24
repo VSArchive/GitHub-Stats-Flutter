@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:github_stats/model/usermodel.dart';
+import 'package:github_stats/model/userSearchModel.dart';
+import 'package:github_stats/services/firebaes-auth.dart';
+import 'package:provider/provider.dart';
 
 class Profile extends StatelessWidget {
-  final UserModel data;
+  final List<Item> data;
 
   const Profile({Key key, this.data}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final userData = Provider.of<UserExtension>(context);
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Column(
@@ -14,7 +17,7 @@ class Profile extends StatelessWidget {
           Row(
             children: [
               CircleAvatar(
-                backgroundImage: NetworkImage(data.url),
+                backgroundImage: NetworkImage(userData.photoURL),
                 radius: 36,
               ),
               Padding(
@@ -22,14 +25,14 @@ class Profile extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      data.name,
+                      userData.displayName,
                       style:
                           TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                     ),
-                    Text(
-                      data.login,
-                      style: TextStyle(fontSize: 15),
-                    ),
+                    // Text(
+                    //   data.login,
+                    //   style: TextStyle(fontSize: 15),
+                    // ),
                   ],
                 ),
               )
@@ -40,7 +43,7 @@ class Profile extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Text(
-                data.bio.toString(),
+                userData.email,
                 style: TextStyle(fontSize: 18),
               ),
             ),
@@ -56,13 +59,13 @@ class Profile extends StatelessWidget {
                     color: Colors.grey,
                     size: 20,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10),
-                    child: Text(
-                      data.location,
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ),
+                  // Padding(
+                  //   padding: const EdgeInsets.only(left: 10),
+                  //   child: Text(
+                  //     data.,
+                  //     style: TextStyle(fontSize: 18),
+                  //   ),
+                  // ),
                 ],
               ),
             ),
@@ -81,7 +84,7 @@ class Profile extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: 10),
                     child: Text(
-                      data.email,
+                      userData.email,
                       style: TextStyle(fontSize: 18),
                     ),
                   ),
@@ -100,13 +103,13 @@ class Profile extends StatelessWidget {
                     color: Colors.grey,
                     size: 20,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10),
-                    child: Text(
-                      data.blog,
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  )
+                  // Padding(
+                  //   padding: const EdgeInsets.only(left: 10),
+                  //   child: Text(
+                  //     data.blog,
+                  //     style: TextStyle(fontSize: 18),
+                  //   ),
+                  // )
                 ],
               ),
             ),
@@ -122,13 +125,13 @@ class Profile extends StatelessWidget {
                     color: Colors.grey,
                     size: 20,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10),
-                    child: Text(
-                      "${data.followers} Followers | ${data.following} Following",
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  )
+                  // Padding(
+                  //   padding: const EdgeInsets.only(left: 10),
+                  //   child: Text(
+                  //     "${data.f} Followers | ${data.following} Following",
+                  //     style: TextStyle(fontSize: 18),
+                  //   ),
+                  // ),
                 ],
               ),
             ),
@@ -138,21 +141,3 @@ class Profile extends StatelessWidget {
     );
   }
 }
-
-// child: ListView(
-//   children: [
-//     Container(
-//       child: Column(
-//         children: [
-//           Text(
-//             api.userData.name,
-//             style: TextStyle(fontSize: 18.0),
-//           ),
-//           CircleAvatar(
-//             backgroundImage: NetworkImage(api.userData.avatarUrl),
-//           ),
-//         ],
-//       ),
-//     ),
-//   ],
-// ),

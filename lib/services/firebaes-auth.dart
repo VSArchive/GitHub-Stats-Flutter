@@ -28,7 +28,12 @@ class AuthLogic extends AuthID with ChangeNotifier {
     }
   }
 
+  ///Stream to check the user
+
   Stream get onAuthChanges => _auth.authStateChanges().map(_userFromFirebase);
+
+  ///login user and return user
+
   Future<UserExtension> signInWithGitHub(context) async {
     final GitHubSignIn gitHubSignIn = GitHubSignIn(
         clientId: _clientId,

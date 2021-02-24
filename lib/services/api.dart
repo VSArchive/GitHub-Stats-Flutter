@@ -4,30 +4,29 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:github_stats/model/repoDataModel.dart';
 import 'package:github_stats/model/userSearchModel.dart';
-import 'package:github_stats/model/usermodel.dart';
 import 'package:http/http.dart' as http;
 
 ///this is the api Logic class
 class Api extends ChangeNotifier {
-  Api({this.userNameOfSignedInUser, this.username});
-  final String userNameOfSignedInUser;
-  final String username;
+  Api({this.email});
+  final String email;
 
   ///this List takse the userResult from the search query;
   List<Item> userFetchResult = [];
   List<RepoDataModel> userRepoDetails = [];
 
-  UserModel userModelFromJson(String str) =>
-      UserModel.fromJson(json.decode(str));
   String previousSearch;
+  UserSearchModel userSearchModelFromJson(String str) =>
+      UserSearchModel.fromJson(json.decode(str));
 
-  //get Username
   // ignore: missing_return
-  Future<UserModel> getUserInfo() async {
-    String url = "https://api.github.com/users/$username";
+  Future<List<Item>> getUserInfo() async {
+    String url = "https://api.github.com/search/users?q=$email";
     final responseData = await http.get(url);
     if (responseData.statusCode == 200) {
-      return userModelFromJson(responseData.body);
+      UserSearchModel userall = userSearchModelFromJson(responseData.body);
+      print(userall);
+      return userall.items;
     } else {
       print(responseData.statusCode);
     }
@@ -59,7 +58,7 @@ class Api extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<List<RepoDataModel>> getUserRepoInfo() async {
+  Future<List<RepoDataModel>> getUserRepoInfo(String username) async {
     if (username.isEmpty) {
       userRepoDetails.clear();
       throw "No Repos Found";

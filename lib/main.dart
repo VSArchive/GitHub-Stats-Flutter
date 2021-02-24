@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -39,13 +40,12 @@ class MyApp extends StatelessWidget {
                 home: Login(),
               );
             } else {
-              print(user.displayName);
+              print(user.email);
               return MultiProvider(
                 providers: [
+                  Provider<UserExtension>.value(value: user),
                   ChangeNotifierProvider<Api>(
-                    create: (context) => Api(
-                        userNameOfSignedInUser: user.email,
-                        username: user.displayName),
+                    create: (context) => Api(email: user.email),
                   ),
                 ],
                 child: MaterialApp(home: MaterialHomePage()),

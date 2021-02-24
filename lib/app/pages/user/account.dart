@@ -3,6 +3,8 @@ import 'package:github_stats/app/pages/user/graph1.dart';
 import 'package:github_stats/app/pages/user/graph2.dart';
 import 'package:github_stats/app/pages/user/graph3.dart';
 import 'package:github_stats/app/pages/user/profile.dart';
+import 'package:github_stats/model/repoDataModel.dart';
+import 'package:github_stats/model/userSearchModel.dart';
 import 'package:github_stats/services/api.dart';
 import 'package:github_stats/services/firebaes-auth.dart';
 import 'package:provider/provider.dart';
@@ -29,33 +31,39 @@ class Account extends StatelessWidget {
           Expanded(
             child: Column(
               children: [
-                Expanded(
-                  child: ListView(
-                    children: [
-                      FutureBuilder(
-                        future: api.getUserInfo(),
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            return Profile(data: snapshot.data);
-                          } else {
-                            return Center(child: CircularProgressIndicator());
-                          }
-                        },
-                      ),
-                      Graph1(),
-                      Graph2(),
-                      FutureBuilder(
-                        future: api.getUserRepoInfo(),
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            return Graph3(data: snapshot.data);
-                          } else {
-                            return Center(child: CircularProgressIndicator());
-                          }
-                        },
-                      ),
-                    ],
-                  ),
+                FutureBuilder(
+                  future: api.getUserInfo(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return Expanded(
+                        child: ListView(
+                          children: [
+                            Profile(data: snapshot.data),
+                            Graph1(),
+                            Graph2(),
+                            // FutureBuilder<List<RepoDataModel>>(
+                            //   future:
+                            //       api.getUserRepoInfo(snapshot.data[1].login),
+                            //   builder: (context, snapshot) {
+                            //     if (snapshot.hasData) {
+                            //       return Container(
+                            //         color: Colors.red,
+                            //       );
+
+                            //       // Graph3(data: snapshot.data);
+                            //     } else {
+                            //       return Center(
+                            //           child: CircularProgressIndicator());
+                            //     }
+                            //   },
+                            // ),
+                          ],
+                        ),
+                      );
+                    } else {
+                      return Center(child: CircularProgressIndicator());
+                    }
+                  },
                 ),
               ],
             ),
