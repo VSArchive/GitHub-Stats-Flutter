@@ -18,7 +18,6 @@ class AuthLogic extends AuthID with ChangeNotifier {
     } else {
       return UserExtension(
           uid: user.uid,
-          username: user.username,
           displayName: user.displayName,
           emailVerified: user.emailVerified,
           isAnonymous: user.isAnonymous,
@@ -53,7 +52,6 @@ class AuthLogic extends AuthID with ChangeNotifier {
 
 class UserExtension {
   final String uid;
-  final String username;
   final String email;
   final String displayName;
   final bool emailVerified;
@@ -64,7 +62,6 @@ class UserExtension {
 
   UserExtension(
       {this.uid,
-      this.username,
       this.email,
       this.displayName,
       this.emailVerified,

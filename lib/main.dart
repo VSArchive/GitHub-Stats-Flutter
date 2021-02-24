@@ -39,13 +39,13 @@ class MyApp extends StatelessWidget {
                 home: Login(),
               );
             } else {
-              print(user.username);
+              print(user.displayName);
               return MultiProvider(
                 providers: [
                   ChangeNotifierProvider<Api>(
                     create: (context) => Api(
                         userNameOfSignedInUser: user.email,
-                        username: user.username),
+                        username: user.displayName),
                   ),
                 ],
                 child: MaterialApp(home: MaterialHomePage()),
