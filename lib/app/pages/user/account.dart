@@ -11,12 +11,15 @@ import 'package:provider/provider.dart';
 
 class Account extends StatelessWidget {
   final String userName;
+
   const Account({Key key, this.userName}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final api = Provider.of<Api>(context);
     final auth = Provider.of<AuthLogic>(context);
     return Scaffold(
+      backgroundColor: Color.fromRGBO(237, 241, 242, 1),
       appBar: AppBar(
         actions: [
           IconButton(
