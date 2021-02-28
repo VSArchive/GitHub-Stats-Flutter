@@ -64,11 +64,11 @@ class Api extends ChangeNotifier {
       throw "Please provide a name";
     } else {
       final String url =
-          "https://api.github.com/search/users?q=$username&per_page=5";
+          "https://api.github.com/search/users?q=$username&per_page=15";
       final responseData = await http.get(url);
       if (responseData.statusCode == 200) {
         final extractedUser =
-        jsonDecode(responseData.body) as Map<String, dynamic>;
+            jsonDecode(responseData.body) as Map<String, dynamic>;
         final x = UserSearchModel.fromJson(extractedUser);
         userFetchResult.clear();
         x.items.forEach((element) {
