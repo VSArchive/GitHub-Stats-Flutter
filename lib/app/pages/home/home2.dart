@@ -89,6 +89,8 @@ class _HomeSearchState extends State<HomeSearch> {
                   return api.userFetchResult.isEmpty && username.isNotEmpty
                       ? Center(
                           child: Container(
+                            margin: EdgeInsets.only(
+                                top: MediaQuery.of(context).size.height * 0.12),
                             height: MediaQuery.of(context).size.height * 0.2,
                             width: MediaQuery.of(context).size.width * 0.9,
                             decoration: BoxDecoration(
@@ -98,6 +100,9 @@ class _HomeSearchState extends State<HomeSearch> {
                             child: Center(
                               child: Text(
                                 "No User Found",
+                                style: TextStyle(
+                                    fontSize: 27,
+                                    fontFamily: 'SF-Pro-Text-Semibold'),
                               ),
                             ),
                           ),

@@ -3,7 +3,6 @@ import 'package:github_stats/app/pages/user/graph1.dart';
 import 'package:github_stats/app/pages/user/graph2.dart';
 import 'package:github_stats/app/pages/user/graph3.dart';
 import 'package:github_stats/app/pages/user/profile.dart';
-import 'package:github_stats/model/usermodel.dart';
 import 'package:github_stats/services/api.dart';
 import 'package:provider/provider.dart';
 
