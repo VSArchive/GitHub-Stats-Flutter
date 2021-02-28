@@ -23,6 +23,8 @@ class RepoDataModel {
   );
 
   Map<String, dynamic> toJson() => {
-    "name": name
+    "name": name,
+    "language": language,
+    "forks": forks,
   };
 }

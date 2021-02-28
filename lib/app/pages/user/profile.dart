@@ -5,6 +5,7 @@ class Profile extends StatelessWidget {
   final UserModel data;
 
   const Profile({Key key, this.data}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -14,6 +15,7 @@ class Profile extends StatelessWidget {
           Row(
             children: [
               CircleAvatar(
+                backgroundColor: Colors.white,
                 backgroundImage: NetworkImage(data.avatarUrl),
                 radius: 36,
               ),
@@ -24,7 +26,7 @@ class Profile extends StatelessWidget {
                     Text(
                       data.name,
                       style:
-                      TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                     ),
                     Text(
                       data.login,

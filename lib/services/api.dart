@@ -74,7 +74,6 @@ class Api extends ChangeNotifier {
         x.items.forEach((element) {
           userFetchResult.add(element);
         });
-        print(userFetchResult.length);
       } else {
         throw responseData.statusCode;
       }
@@ -90,7 +89,7 @@ class Api extends ChangeNotifier {
       final String url = "https://api.github.com/users/$username/repos";
       final responseData = await http.get(url);
       if (responseData.statusCode == 200) {
-        // Do conversion here
+        print((responseData.body as List)[1]);
       } else {
         throw responseData.statusCode;
       }

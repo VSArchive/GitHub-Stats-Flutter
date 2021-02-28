@@ -3,32 +3,30 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:github_stats/app/navigation/change.dart';
 import 'package:github_stats/app/pages/home/home2.dart';
-import 'package:github_stats/model/usermodel.dart';
+import 'package:github_stats/app/pages/user/account.dart';
 import 'package:github_stats/services/api.dart';
 import 'package:provider/provider.dart';
-import 'package:github_stats/app/navigation/bottomNavigationBar.dart';
-import 'package:github_stats/app/navigation/change.dart';
-import 'package:github_stats/app/pages/user/account.dart';
 
 class MaterialHomePage extends StatefulWidget {
-
   @override
   _MaterialHomePageState createState() => _MaterialHomePageState();
 }
 
 class _MaterialHomePageState extends State<MaterialHomePage> {
-
   var _currentPage = 0;
 
   Widget _getBody(index, context) {
     final api = Provider.of<Api>(context);
-    if(index == 1){
+    if (index == 1) {
       return FutureBuilder(
         future: api.getUser(FirebaseAuth.instance.currentUser.email),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return Account(userName: snapshot.data.login.toString(),);
+            return Account(
+              userName: snapshot.data.login.toString(),
+            );
           } else {
             return Center(child: CircularProgressIndicator());
           }
