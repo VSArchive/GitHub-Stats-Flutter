@@ -1,8 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:github_stats/model/repoDataModel.dart';
+import 'package:github_stats/model/graphModal.dart';
 import 'package:github_stats/model/userSearchModel.dart';
 import 'package:github_stats/model/usermodel.dart';
 import 'package:http/http.dart' as http;
@@ -10,13 +11,15 @@ import 'package:http/http.dart' as http;
 ///this is the api Logic class
 class Api extends ChangeNotifier {
   Api({this.email});
+
   final String email;
 
   ///this List takse the userResult from the search query;
   List<Item> userFetchResult = [];
-  List<RepoDataModel> userRepoDetails = [];
+  List<GraphRepo> userRepoDetails = [];
 
   String previousSearch;
+
   UserSearchModel userSearchModelFromJson(String str) =>
       UserSearchModel.fromJson(json.decode(str));
 
@@ -64,7 +67,7 @@ class Api extends ChangeNotifier {
       throw "Please provide a name";
     } else {
       final String url =
-          "https://api.github.com/search/users?q=$username&per_page=15";
+          "https://api.github.com/search/users?q=$username";
       final responseData = await http.get(url);
       if (responseData.statusCode == 200) {
         final extractedUser =
@@ -81,7 +84,7 @@ class Api extends ChangeNotifier {
     }
   }
 
-  Future<List<RepoDataModel>> getUserRepoInfo(String username) async {
+  Future<List<GraphRepo>> getUserRepoInfo(String username) async {
     if (username.isEmpty) {
       userRepoDetails.clear();
       throw "No Repos Found";
@@ -89,7 +92,10 @@ class Api extends ChangeNotifier {
       final String url = "https://api.github.com/users/$username/repos";
       final responseData = await http.get(url);
       if (responseData.statusCode == 200) {
-        print((responseData.body as List)[1]);
+        final extractedUser =
+        jsonDecode(responseData.body) as Map<String, dynamic>;
+        final x = GraphRepo.fromJson(extractedUser);
+        print(x.name);
       } else {
         throw responseData.statusCode;
       }

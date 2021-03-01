@@ -28,7 +28,7 @@ class Account extends StatelessWidget {
                   child: ListView(
                     children: [
                       FutureBuilder(
-                        future: api.getUserInfo("vinnel"),
+                        future: api.getUserInfo(userName),
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
                             return Profile(data: snapshot.data);
@@ -38,7 +38,7 @@ class Account extends StatelessWidget {
                         },
                       ),
                       FutureBuilder(
-                        future: api.getUserRepoInfo("vinnel"),
+                        future: api.getUserRepoInfo(userName),
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
                             return Graph3();
