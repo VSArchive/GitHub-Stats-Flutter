@@ -2,7 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:github_stats/app/navigation/change.dart';
-import 'package:github_stats/app/navigation/homepage.dart';
 import 'package:github_stats/credentials/login.dart';
 import 'package:github_stats/services/api.dart';
 import 'package:github_stats/services/database.dart';
@@ -48,8 +47,8 @@ class MyApp extends StatelessWidget {
                   ChangeNotifierProvider<Api>(
                     create: (context) => Api(email: user.email),
                   ),
-                  ChangeNotifierProvider<CloudDatabase>(
-                    create: (context) => CloudDatabase(uid: user.uid),
+                  ChangeNotifierProvider<Database>(
+                    create: (context) => Database(uid: user.uid),
                   ),
                 ],
                 child: MaterialApp(home: SplashScreen()),

@@ -1,14 +1,14 @@
 import 'package:bottom_bar_page_transition/bottom_bar_page_transition.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:github_stats/app/navigation/change.dart';
 import 'package:github_stats/app/pages/home/home2.dart';
 import 'package:github_stats/app/pages/user/account.dart';
 import 'package:github_stats/model/CloudUserData.dart';
+import 'package:github_stats/model/mainUserDetails.dart';
 import 'package:github_stats/services/api.dart';
-import 'package:github_stats/services/database.dart';
+import 'package:github_stats/services/firebaes-auth.dart';
 import 'package:provider/provider.dart';
 
 class MaterialHomePage extends StatefulWidget {
@@ -17,13 +17,20 @@ class MaterialHomePage extends StatefulWidget {
 }
 
 class _MaterialHomePageState extends State<MaterialHomePage> {
-  var _currentPage = 1;
+  var _currentPage = 0;
   Widget _getBody(index, context) {
     final api = Provider.of<Api>(context);
-
+    final cdatabase = Provider.of<List<CloudUserData>>(context);
+    final uidXX = Provider.of<UserExtension>(context);
+    String username = '';
     if (index == 1) {
-      return FutureProvider<List<CloudUserData>>.value(
-          value: api., initialData: [], child: Account());
+      cdatabase.forEach((CloudUserData e) {
+        if (e.uid == uidXX.uid) {
+          username = e.username;
+        }
+      });
+      return FutureProvider<MainUserModel>.value(
+          value: api.mainUser(username), initialData: null, child: Account());
     } else {
       return HomeSearch();
     }

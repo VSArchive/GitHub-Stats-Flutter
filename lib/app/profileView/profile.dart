@@ -179,6 +179,7 @@ class ProfileFromSerach extends StatelessWidget {
     );
   }
 
+  // ignore: unused_element
   _launchURL(String urlX) async {
     try {
       if (await canLaunch(urlX)) {

@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:github_stats/model/graphModal.dart';
+import 'package:github_stats/model/mainUserDetails.dart';
 import 'package:github_stats/model/userSearchModel.dart';
 import 'package:github_stats/model/usermodel.dart';
 import 'package:http/http.dart' as http;
@@ -22,6 +23,18 @@ class Api extends ChangeNotifier {
 
   UserSearchModel userSearchModelFromJson(String str) =>
       UserSearchModel.fromJson(json.decode(str));
+//
+
+  // ignore: missing_return
+  Future<MainUserModel> mainUser(String userName) async {
+    String url = "https://api.github.com/users/$userName";
+    final responseData = await http.get(url);
+    if (responseData.statusCode == 200) {
+      return userModelFromJsonX(responseData.body);
+    } else {
+      print(responseData.statusCode);
+    }
+  }
 
   // ignore: missing_return
   Future<UserModel> getUserInfo(String userName) async {

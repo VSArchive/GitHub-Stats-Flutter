@@ -19,7 +19,6 @@ class _HomeSearchState extends State<HomeSearch> {
   @override
   Widget build(BuildContext context) {
     final api = Provider.of<Api>(context, listen: false);
-
     return Scaffold(
       backgroundColor: Color.fromRGBO(237, 241, 242, 1),
       appBar: AppBar(

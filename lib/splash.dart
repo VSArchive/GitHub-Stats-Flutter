@@ -37,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen>
         MaterialPageRoute(
             builder: (BuildContext context) => Builder(
                   builder: (context) {
-                    final cdatabase = Provider.of<CloudDatabase>(context);
+                    final cdatabase = Provider.of<Database>(context);
                     return StreamProvider<List<CloudUserData>>.value(
                         value: cdatabase.dataUserC(),
                         initialData: [],
