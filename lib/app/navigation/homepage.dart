@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:github_stats/app/navigation/change.dart';
 import 'package:github_stats/app/pages/home/home2.dart';
 import 'package:github_stats/app/pages/user/account.dart';
+import 'package:github_stats/model/CloudUserData.dart';
 import 'package:github_stats/services/api.dart';
+import 'package:github_stats/services/database.dart';
 import 'package:provider/provider.dart';
 
 class MaterialHomePage extends StatefulWidget {
@@ -15,21 +17,13 @@ class MaterialHomePage extends StatefulWidget {
 }
 
 class _MaterialHomePageState extends State<MaterialHomePage> {
-  var _currentPage = 0;
-
+  var _currentPage = 1;
   Widget _getBody(index, context) {
     final api = Provider.of<Api>(context);
+
     if (index == 1) {
-      return FutureBuilder(
-        future: api.getUser(api.email),
-        builder: (context, snapshot) {
-          if (!snapshot.hasData) {
-            return Account();
-          } else {
-            return Center(child: CircularProgressIndicator());
-          }
-        },
-      );
+      return FutureProvider<List<CloudUserData>>.value(
+          value: api., initialData: [], child: Account());
     } else {
       return HomeSearch();
     }

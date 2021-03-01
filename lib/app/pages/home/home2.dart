@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:github_stats/app/pages/user/account.dart';
 import 'package:github_stats/app/profileView/profile.dart';
 import 'package:github_stats/model/usermodel.dart';
 import 'package:github_stats/services/api.dart';

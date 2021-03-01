@@ -2,8 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:github_sign_in/github_sign_in.dart';
-import 'package:github_stats/model/CloudUserData.dart';
-import 'package:github_stats/services/database.dart';
 
 abstract class AuthID {
   Future<void> signout();
@@ -58,6 +56,7 @@ class AuthLogic extends AuthID with ChangeNotifier {
     }).catchError((e) {
       print(e);
     });
+    notifyListeners();
     return _userFromFirebase(credential.user);
   }
 

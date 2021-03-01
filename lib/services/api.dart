@@ -61,28 +61,28 @@ class Api extends ChangeNotifier {
     }
   }
 
-  Future<Item> getUser(String username) async {
-    if (username.isEmpty) {
-      userFetchResult.clear();
-      throw "Please provide a name";
-    } else {
-      final String url =
-          "https://api.github.com/search/users?q=$username";
-      final responseData = await http.get(url);
-      if (responseData.statusCode == 200) {
-        final extractedUser =
-            jsonDecode(responseData.body) as Map<String, dynamic>;
-        final x = UserSearchModel.fromJson(extractedUser);
-        userFetchResult.clear();
-        x.items.forEach((element) {
-          userFetchResult.add(element);
-        });
-      } else {
-        throw responseData.statusCode;
-      }
-      return userFetchResult.first;
-    }
-  }
+  // Future<Item> getUser(String username) async {
+  //   if (username.isEmpty) {
+  //     userFetchResult.clear();
+  //     throw "Please provide a name";
+  //   } else {
+  //     final String url =
+  //         "https://api.github.com/search/users?q=$username";
+  //     final responseData = await http.get(url);
+  //     if (responseData.statusCode == 200) {
+  //       final extractedUser =
+  //           jsonDecode(responseData.body) as Map<String, dynamic>;
+  //       final x = UserSearchModel.fromJson(extractedUser);
+  //       userFetchResult.clear();
+  //       x.items.forEach((element) {
+  //         userFetchResult.add(element);
+  //       });
+  //     } else {
+  //       throw responseData.statusCode;
+  //     }
+  //     return userFetchResult.first;
+  //   }
+  // }
 
   Future<List<GraphRepo>> getUserRepoInfo(String username) async {
     if (username.isEmpty) {
@@ -93,7 +93,7 @@ class Api extends ChangeNotifier {
       final responseData = await http.get(url);
       if (responseData.statusCode == 200) {
         final extractedUser =
-        jsonDecode(responseData.body) as Map<String, dynamic>;
+            jsonDecode(responseData.body) as Map<String, dynamic>;
         final x = GraphRepo.fromJson(extractedUser);
         print(x.name);
       } else {

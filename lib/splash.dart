@@ -2,6 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:github_stats/app/navigation/homepage.dart';
+import 'package:github_stats/model/CloudUserData.dart';
+import 'package:github_stats/services/database.dart';
+import 'package:provider/provider.dart';
 
 import 'app/navigation/homepage.dart';
 
@@ -32,7 +35,15 @@ class _SplashScreenState extends State<SplashScreen>
       Duration(seconds: 3),
       () => Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-            builder: (BuildContext context) => MaterialHomePage()),
+            builder: (BuildContext context) => Builder(
+                  builder: (context) {
+                    final cdatabase = Provider.of<CloudDatabase>(context);
+                    return StreamProvider<List<CloudUserData>>.value(
+                        value: cdatabase.dataUserC(),
+                        initialData: [],
+                        child: MaterialHomePage());
+                  },
+                )),
       ),
     );
   }

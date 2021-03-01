@@ -5,6 +5,7 @@ import 'package:github_stats/app/navigation/change.dart';
 import 'package:github_stats/app/navigation/homepage.dart';
 import 'package:github_stats/credentials/login.dart';
 import 'package:github_stats/services/api.dart';
+import 'package:github_stats/services/database.dart';
 import 'package:github_stats/services/firebaes-auth.dart';
 import 'package:github_stats/splash.dart';
 import 'package:provider/provider.dart';
@@ -46,6 +47,9 @@ class MyApp extends StatelessWidget {
                   Provider<UserExtension>.value(value: user),
                   ChangeNotifierProvider<Api>(
                     create: (context) => Api(email: user.email),
+                  ),
+                  ChangeNotifierProvider<CloudDatabase>(
+                    create: (context) => CloudDatabase(uid: user.uid),
                   ),
                 ],
                 child: MaterialApp(home: SplashScreen()),
