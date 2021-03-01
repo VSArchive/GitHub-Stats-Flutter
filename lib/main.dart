@@ -6,6 +6,7 @@ import 'package:github_stats/app/navigation/homepage.dart';
 import 'package:github_stats/credentials/login.dart';
 import 'package:github_stats/services/api.dart';
 import 'package:github_stats/services/firebaes-auth.dart';
+import 'package:github_stats/splash.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
                     create: (context) => Api(email: user.email),
                   ),
                 ],
-                child: MaterialApp(home: MaterialHomePage()),
+                child: MaterialApp(home: SplashScreen()),
               );
             }
           } else {

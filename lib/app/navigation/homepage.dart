@@ -21,12 +21,10 @@ class _MaterialHomePageState extends State<MaterialHomePage> {
     final api = Provider.of<Api>(context);
     if (index == 1) {
       return FutureBuilder(
-        future: api.getUser(FirebaseAuth.instance.currentUser.email),
+        future: api.getUser(api.email),
         builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return Account(
-              userName: snapshot.data.login.toString(),
-            );
+          if (!snapshot.hasData) {
+            return Account();
           } else {
             return Center(child: CircularProgressIndicator());
           }

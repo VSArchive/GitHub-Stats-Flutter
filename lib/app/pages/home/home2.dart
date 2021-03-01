@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:github_stats/app/pages/user/account.dart';
+import 'package:github_stats/app/profileView/profile.dart';
+import 'package:github_stats/model/usermodel.dart';
 import 'package:github_stats/services/api.dart';
 import 'package:provider/provider.dart';
 
@@ -116,8 +118,15 @@ class _HomeSearchState extends State<HomeSearch> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => Account(
-                                        userName: api.userFetchResult[i].login,
+                                      builder: (context) =>
+                                          FutureProvider<UserModel>.value(
+                                        initialData: null,
+                                        value: api.getUserInfo(
+                                            api.userFetchResult[i].login),
+                                        child: ProfileFromSerach(
+                                          userName:
+                                              api.userFetchResult[i].login,
+                                        ),
                                       ),
                                     ),
                                   )
