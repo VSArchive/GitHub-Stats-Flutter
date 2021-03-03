@@ -117,6 +117,22 @@ class _HomeSearchState extends State<HomeSearch> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
+
+                                          //  FutureBuilder<UserModel>(
+                                          //     future: api.getUserInfo(
+                                          //         api.userFetchResult[i].login),
+                                          //     builder: (context, snapshot) {
+                                          //       if (snapshot.hasData) {
+                                          //         return ProfileFromSerach(
+                                          //           data: snapshot.data,
+                                          //         );
+                                          //       } else {
+                                          //         return Center(
+                                          //             child:
+                                          //                 CircularProgressIndicator());
+                                          //       }
+                                          //     }),
+
                                           FutureProvider<UserModel>.value(
                                         initialData: null,
                                         value: api.getUserInfo(

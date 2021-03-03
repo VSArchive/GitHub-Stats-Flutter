@@ -12,11 +12,10 @@ class ProfileFromSerach extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final data = Provider.of<UserModel>(context);
-    print(data.blog);
     return Scaffold(
       appBar: CupertinoNavigationBar(
         middle: Text(
-          data.login,
+          userName,
           style: TextStyle(fontSize: 15),
         ),
       ),
@@ -113,14 +112,14 @@ class ProfileFromSerach extends StatelessWidget {
                             color: Colors.grey,
                             size: 20,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: AutoSizeText(
-                              data.twitterUsername,
-                              style: TextStyle(fontSize: 18),
-                              maxLines: 2,
-                            ),
-                          ),
+                          // Padding(
+                          //   padding: const EdgeInsets.only(left: 10),
+                          //   child: AutoSizeText(
+                          //     data.twitterUsername,
+                          //     style: TextStyle(fontSize: 18),
+                          //     maxLines: 2,
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),
