@@ -20,7 +20,7 @@ class _HomeSearchState extends State<HomeSearch> {
   Widget build(BuildContext context) {
     final api = Provider.of<Api>(context, listen: false);
     return Scaffold(
-      backgroundColor: Color.fromRGBO(237, 241, 242, 1),
+      backgroundColor: Color.fromRGBO(255, 255, 255, 1),
       appBar: AppBar(
         title: Text('Search'),
         backgroundColor: Colors.black87,
@@ -111,7 +111,7 @@ class _HomeSearchState extends State<HomeSearch> {
                           child: ListView.builder(
                             itemCount: api.userFetchResult.length,
                             itemBuilder: (context, i) {
-                              return ListTile(
+                              return GestureDetector(
                                 onTap: () => {
                                   Navigator.push(
                                     context,
@@ -145,14 +145,55 @@ class _HomeSearchState extends State<HomeSearch> {
                                     ),
                                   )
                                 },
-                                leading: CircleAvatar(
-                                  backgroundImage: NetworkImage(
-                                      api.userFetchResult[i].avatarUrl),
-                                ),
-                                title: Text(
-                                  api.userFetchResult[i].login,
-                                  style: TextStyle(
-                                      fontSize: 17, color: Colors.black),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    border: Border(
+                                      bottom: BorderSide(
+                                          width: 1.0,
+                                          color:
+                                              Color.fromRGBO(60, 60, 67, 0.36)),
+                                    ),
+                                    color: Colors.white,
+                                  ),
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.08,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            CircleAvatar(
+                                              backgroundColor:
+                                                  CupertinoColors.systemGrey,
+                                              backgroundImage: NetworkImage(api
+                                                  .userFetchResult[i]
+                                                  .avatarUrl),
+                                            ),
+                                            Text(
+                                              api.userFetchResult[i].login,
+                                              style: TextStyle(
+                                                decoration: TextDecoration.none,
+                                                color:
+                                                    Color.fromRGBO(0, 0, 0, 1),
+                                                fontSize: 17.0,
+                                                fontFamily:
+                                                    'SF-Pro-Text-Regular',
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Icon(
+                                          CupertinoIcons.chevron_forward,
+                                          color:
+                                              Color.fromRGBO(60, 60, 67, 0.30),
+                                          size: 16.0,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 ),
                               );
                             },
