@@ -6,6 +6,8 @@ import 'package:github_stats/app/pages/user/profile.dart';
 import 'package:github_stats/services/api.dart';
 import 'package:provider/provider.dart';
 
+import 'graph4.dart';
+
 class Account extends StatelessWidget {
   final String userName;
   const Account({Key key, this.userName}) : super(key: key);
@@ -41,14 +43,42 @@ class Account extends StatelessWidget {
                         future: api.getUserRepoInfo(userName),
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
-                            return Graph3();
+                            return Graph3(data: snapshot.data,);
                           } else {
                             return Center(child: CircularProgressIndicator());
                           }
                         },
                       ),
-                      Graph1(),
-                      Graph2(),
+                      FutureBuilder(
+                        future: api.getUserRepoInfo(userName),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            return Graph2(data: snapshot.data,);
+                          } else {
+                            return Center(child: CircularProgressIndicator());
+                          }
+                        },
+                      ),
+                      FutureBuilder(
+                        future: api.getUserRepoInfo(userName),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            return Graph1(data: snapshot.data,);
+                          } else {
+                            return Center(child: CircularProgressIndicator());
+                          }
+                        },
+                      ),
+                      FutureBuilder(
+                        future: api.getUserRepoInfo(userName),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            return Graph4(data: snapshot.data,);
+                          } else {
+                            return Center(child: CircularProgressIndicator());
+                          }
+                        },
+                      ),
                     ],
                   ),
                 ),

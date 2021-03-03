@@ -92,10 +92,7 @@ class Api extends ChangeNotifier {
       final String url = "https://api.github.com/users/$username/repos";
       final responseData = await http.get(url);
       if (responseData.statusCode == 200) {
-        final extractedUser =
-        jsonDecode(responseData.body) as Map<String, dynamic>;
-        final x = GraphRepo.fromJson(extractedUser);
-        print(x.name);
+        userRepoDetails = graphRepoFromJson(responseData.body);
       } else {
         throw responseData.statusCode;
       }
