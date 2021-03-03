@@ -25,7 +25,7 @@ class _HomeSearchState extends State<HomeSearch> {
         elevation: 0,
         backgroundColor: Color.fromRGBO(255, 255, 255, 1),
         title: Text(
-          'Git-Stats',
+          'Start',
           style: TextStyle(
             fontFamily: 'SF-Pro-Display-Bold',
             fontSize: 34,
@@ -35,7 +35,7 @@ class _HomeSearchState extends State<HomeSearch> {
       ),
       body: Container(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.only(top: 10.0, left: 8, right: 8),
           child: Column(
             children: [
               Container(
@@ -152,6 +152,7 @@ class _HomeSearchState extends State<HomeSearch> {
                                         value: api.getUserInfo(
                                             api.userFetchResult[i].login),
                                         child: ProfileFromSerach(
+                                          api: api,
                                           userName:
                                               api.userFetchResult[i].login,
                                         ),

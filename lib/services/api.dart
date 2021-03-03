@@ -36,6 +36,15 @@ class Api extends ChangeNotifier {
     }
   }
 
+  Future<void> followaUser(String username) async {
+    String url = 'https://api.github.com/user/following/$username';
+    try {
+      await http.put(url, body: jsonEncode({'username': username}));
+    } catch (e) {
+      throw e;
+    }
+  }
+
   // ignore: missing_return
   Future<UserModel> getUserInfo(String userName) async {
     String url = "https://api.github.com/users/$userName";
