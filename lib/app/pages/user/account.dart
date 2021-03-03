@@ -13,172 +13,176 @@ class Account extends StatelessWidget {
     final auth = Provider.of<AuthLogic>(context);
     final datas = Provider.of<MainUserModel>(context);
     return Scaffold(
-      backgroundColor: Color.fromRGBO(237, 241, 242, 1),
+      backgroundColor: Color.fromRGBO(255, 255, 255, 1),
       appBar: AppBar(
-        actions: [
-          IconButton(
-            icon: Icon(Icons.exit_to_app),
-            onPressed: auth.signout,
-          )
-        ],
-        title: Text('Profile'),
-        backgroundColor: Colors.black87,
-        brightness: Brightness.dark,
+        elevation: 0,
+        backgroundColor: Color.fromRGBO(255, 255, 255, 1),
+        title: Text(
+          'Profile',
+          style: TextStyle(
+            fontFamily: 'SF-Pro-Display-Bold',
+            fontSize: 34,
+            color: Color.fromRGBO(0, 0, 0, 1),
+          ),
+        ),
       ),
       body: Container(
         child: datas == null
             ? Center(
                 child: CircularProgressIndicator(),
               )
-            : ListView(
-                children: [
-                  Row(
-                    children: [
-                      CircleAvatar(
-                        backgroundColor: Colors.white,
-                        backgroundImage: NetworkImage(datas.avatarUrl),
-                        radius: 36,
-                      ),
-                      Padding(
+            : Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ListView(
+                  children: [
+                    Row(
+                      children: [
+                        CircleAvatar(
+                          backgroundColor: Colors.white,
+                          backgroundImage: NetworkImage(datas.avatarUrl),
+                          radius: 36,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(
+                            children: [
+                              Text(
+                                datas.name,
+                                style: TextStyle(
+                                    fontSize: 30, fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
                         padding: const EdgeInsets.all(10.0),
-                        child: Column(
+                        child: Text(
+                          datas.bio.toString(),
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Row(
                           children: [
-                            Text(
-                              datas.name,
-                              style: TextStyle(
-                                  fontSize: 30, fontWeight: FontWeight.bold),
+                            Icon(
+                              Icons.location_on_outlined,
+                              color: Colors.grey,
+                              size: 20,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10),
+                              child: Text(
+                                datas.location,
+                                style: TextStyle(fontSize: 18),
+                              ),
                             ),
                           ],
                         ),
-                      )
-                    ],
-                  ),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Text(
-                        datas.bio.toString(),
-                        style: TextStyle(fontSize: 18),
                       ),
                     ),
-                  ),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.location_on_outlined,
-                            color: Colors.grey,
-                            size: 20,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Text(
-                              datas.location,
-                              style: TextStyle(fontSize: 18),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.email_outlined,
+                              color: Colors.grey,
+                              size: 20,
                             ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.email_outlined,
-                            color: Colors.grey,
-                            size: 20,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Text(
-                              datas.email,
-                              style: TextStyle(fontSize: 18),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10),
+                              child: Text(
+                                datas.email,
+                                style: TextStyle(fontSize: 18),
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.brightness_medium_rounded,
-                            color: Colors.grey,
-                            size: 20,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: AutoSizeText(
-                              datas.twitterUsername,
-                              style: TextStyle(fontSize: 18),
-                              maxLines: 2,
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.brightness_medium_rounded,
+                              color: Colors.grey,
+                              size: 20,
                             ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.link_outlined,
-                            color: Colors.grey,
-                            size: 20,
-                          ),
-                          GestureDetector(
-                            onTap: () => launch(datas.blog),
-                            child: Padding(
+                            Padding(
                               padding: const EdgeInsets.only(left: 10),
                               child: AutoSizeText(
-                                datas.blog.substring(24),
+                                datas.twitterUsername,
                                 style: TextStyle(fontSize: 18),
                                 maxLines: 2,
                               ),
                             ),
-                          )
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.person_outlined,
-                            color: Colors.grey,
-                            size: 20,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Text(
-                              "${datas.followers} Followers | ${datas.following} Following",
-                              style: TextStyle(fontSize: 18),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.link_outlined,
+                              color: Colors.grey,
+                              size: 20,
                             ),
-                          )
-                        ],
+                            GestureDetector(
+                              onTap: () => launch(datas.blog),
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 10),
+                                child: AutoSizeText(
+                                  datas.blog.substring(24),
+                                  style: TextStyle(fontSize: 18),
+                                  maxLines: 2,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.person_outlined,
+                              color: Colors.grey,
+                              size: 20,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10),
+                              child: Text(
+                                "${datas.followers} Followers | ${datas.following} Following",
+                                style: TextStyle(fontSize: 18),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
       ),
     );

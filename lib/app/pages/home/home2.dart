@@ -22,9 +22,16 @@ class _HomeSearchState extends State<HomeSearch> {
     return Scaffold(
       backgroundColor: Color.fromRGBO(255, 255, 255, 1),
       appBar: AppBar(
-        title: Text('Search'),
-        backgroundColor: Colors.black87,
-        brightness: Brightness.dark,
+        elevation: 0,
+        backgroundColor: Color.fromRGBO(255, 255, 255, 1),
+        title: Text(
+          'Git-Stats',
+          style: TextStyle(
+            fontFamily: 'SF-Pro-Display-Bold',
+            fontSize: 34,
+            color: Color.fromRGBO(0, 0, 0, 1),
+          ),
+        ),
       ),
       body: Container(
         child: Padding(
@@ -44,6 +51,13 @@ class _HomeSearchState extends State<HomeSearch> {
                       color: Colors.grey,
                       size: 18,
                     ),
+                  ),
+                  style: TextStyle(color: Color.fromRGBO(0, 0, 0, 1)),
+                  decoration: BoxDecoration(
+                      color: Color.fromRGBO(118, 118, 118, 0.12),
+                      borderRadius: BorderRadius.circular(5.0)),
+                  placeholderStyle: TextStyle(
+                    color: Color.fromRGBO(60, 60, 67, 0.60),
                   ),
                   onChanged: (value) {
                     api.previousSearch = value;
@@ -172,6 +186,7 @@ class _HomeSearchState extends State<HomeSearch> {
                                                   .userFetchResult[i]
                                                   .avatarUrl),
                                             ),
+                                            SizedBox(width: 10),
                                             Text(
                                               api.userFetchResult[i].login,
                                               style: TextStyle(
