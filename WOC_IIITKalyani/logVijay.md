@@ -4,3 +4,15 @@ use consumer to show in the ui part.
 
 
 ui made in flutter.
+
+ui build such as list view 
+many api calls such as follow user are given
+
+implementing state management using provider
+
+implementing sign in with github
+
+saving the user cred in  firebase 
+
+login with firebase feature
+
