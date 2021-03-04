@@ -150,7 +150,9 @@ class Account extends StatelessWidget {
                                 padding: const EdgeInsets.only(left: 10),
                                 child: AutoSizeText(
                                   datas.blog.substring(24),
-                                  style: TextStyle(fontSize: 18),
+                                  style: TextStyle(
+                                      fontSize: 17,
+                                      fontFamily: 'SF-Pro-Text-Medium'),
                                   maxLines: 2,
                                 ),
                               ),
@@ -174,14 +176,15 @@ class Account extends StatelessWidget {
                               padding: const EdgeInsets.only(left: 10),
                               child: Text(
                                 "${datas.followers} Followers | ${datas.following} Following",
-                                style: TextStyle(fontSize: 18),
+                                style: TextStyle(
+                                    fontSize: 17,
+                                    fontFamily: 'SF-Pro-Text-Medium'),
                               ),
                             ),
                           ],
                         ),
                       ),
                     ),
-                    Text(datas.followersUrl),
                   ],
                 ),
               ),
