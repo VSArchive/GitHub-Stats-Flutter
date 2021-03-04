@@ -17,23 +17,22 @@ class MaterialHomePage extends StatefulWidget {
 }
 
 class _MaterialHomePageState extends State<MaterialHomePage> {
-  var _currentPage = 0;
+  var _currentPage = 1;
   Widget _getBody(index, context) {
     final api = Provider.of<Api>(context);
     final cdatabase = Provider.of<List<CloudUserData>>(context);
     final uidXX = Provider.of<UserExtension>(context);
     String username = '';
-    if (index == 1) {
-      cdatabase.forEach((CloudUserData e) {
-        if (e.uid == uidXX.uid) {
-          username = e.username;
-        }
-      });
-      return FutureProvider<MainUserModel>.value(
-          value: api.mainUser(username), initialData: null, child: Account());
-    } else {
-      return HomeSearch();
-    }
+
+    cdatabase.forEach((CloudUserData e) {
+      if (e.uid == uidXX.uid) {
+        username = e.username;
+      }
+    });
+    return FutureProvider<MainUserModel>.value(
+        value: api.mainUser(username),
+        initialData: null,
+        child: index == 1 ? Account() : HomeSearch());
   }
 
   @override

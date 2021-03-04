@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:github_stats/app/profileView/profile.dart';
+import 'package:github_stats/model/mainUserDetails.dart';
 import 'package:github_stats/model/usermodel.dart';
 import 'package:github_stats/services/api.dart';
 import 'package:provider/provider.dart';
@@ -18,6 +19,7 @@ class _HomeSearchState extends State<HomeSearch> {
 
   @override
   Widget build(BuildContext context) {
+    final authUser = Provider.of<MainUserModel>(context);
     final api = Provider.of<Api>(context, listen: false);
     return Scaffold(
       backgroundColor: Color.fromRGBO(255, 255, 255, 1),
@@ -152,6 +154,7 @@ class _HomeSearchState extends State<HomeSearch> {
                                         value: api.getUserInfo(
                                             api.userFetchResult[i].login),
                                         child: ProfileFromSerach(
+                                          authUsername: authUser.login,
                                           api: api,
                                           userName:
                                               api.userFetchResult[i].login,

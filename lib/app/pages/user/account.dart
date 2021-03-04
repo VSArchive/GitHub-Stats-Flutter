@@ -176,11 +176,12 @@ class Account extends StatelessWidget {
                                 "${datas.followers} Followers | ${datas.following} Following",
                                 style: TextStyle(fontSize: 18),
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),
                     ),
+                    Text(datas.followersUrl),
                   ],
                 ),
               ),

@@ -8,8 +8,10 @@ import 'package:url_launcher/url_launcher.dart';
 
 class ProfileFromSerach extends StatelessWidget {
   final String userName;
+  final String authUsername;
   final Api api;
-  const ProfileFromSerach({Key key, this.api, this.userName}) : super(key: key);
+  const ProfileFromSerach({Key key, this.authUsername, this.api, this.userName})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     final data = Provider.of<UserModel>(context);
@@ -193,9 +195,9 @@ class ProfileFromSerach extends StatelessWidget {
                             fontFamily: 'SF-Pro-Text-Semibold',
                             fontSize: 17),
                       ),
-                      onPressed: () async{
+                      onPressed: () async {
                         try {
-                         await api.followaUser(userName);
+                          await api.followaUser(userName, authUsername);
                           print('done');
                         } catch (e) {
                           print(e);

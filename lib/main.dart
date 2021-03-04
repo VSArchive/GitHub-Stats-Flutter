@@ -40,7 +40,6 @@ class MyApp extends StatelessWidget {
                 home: Login(),
               );
             } else {
-              print(user.email);
               return MultiProvider(
                 providers: [
                   Provider<UserExtension>.value(value: user),
