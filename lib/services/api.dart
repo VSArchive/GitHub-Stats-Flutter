@@ -37,9 +37,13 @@ class Api extends ChangeNotifier {
   }
 
   Future<void> followaUser(String username) async {
-    String url = 'https://api.github.com/user/following/$username';
+    String url =
+        'https://api.github.com/vijayshankarrealdeal/following/$username';
+    String url2 = "https://api.github.com/vijayshankarrealdeal/followers";
     try {
       await http.put(url, body: jsonEncode({'username': username}));
+      final res = await http.get(url2);
+      print(res.body);
     } catch (e) {
       throw e;
     }

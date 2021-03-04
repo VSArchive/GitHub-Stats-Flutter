@@ -193,9 +193,10 @@ class ProfileFromSerach extends StatelessWidget {
                             fontFamily: 'SF-Pro-Text-Semibold',
                             fontSize: 17),
                       ),
-                      onPressed: () {
+                      onPressed: () async{
                         try {
-                          api.followaUser(userName);
+                         await api.followaUser(userName);
+                          print('done');
                         } catch (e) {
                           print(e);
                         }
