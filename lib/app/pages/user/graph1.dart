@@ -1,121 +1,78 @@
-import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:flutter/material.dart';
+import 'package:github_stats/model/graphModal.dart';
 
+// ignore: must_be_immutable
 class Graph1 extends StatelessWidget {
+  List<GraphRepo> data;
+  Map<String, int> stars = new Map<String, int>();
+
+  Graph1({Key key, this.data}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    data.forEach((element) {
+      if (element.stargazersCount > 0) {
+        stars[element.name] = element.stargazersCount;
+      }
+    });
+    print(Stars);
     return Container(
       height: MediaQuery.of(context).size.height * 0.3,
       width: MediaQuery.of(context).size.width * 0.7,
       decoration: BoxDecoration(
-        //color: CupertinoColors.darkBackgroundGray.withOpacity(0.3),
         borderRadius: BorderRadius.circular(12.0),
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: charts.BarChart(
-          createSampleData3(),
-          animate: true,
-          animationDuration: Duration(seconds: 2),
-          barGroupingType: charts.BarGroupingType.groupedStacked,
-        ),
+      child: Stack(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: charts.BarChart(
+              _createSampleData2(),
+              animate: true,
+              animationDuration: Duration(seconds: 1),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              width: double.infinity,
+              child: Text("Stars"),
+              alignment: Alignment.topCenter,
+            ),
+          ),
+        ],
       ),
     );
   }
 
-  static List<charts.Series<OrdinalSales, String>> createSampleData3() {
-    final desktopSalesDataA = [
-      new OrdinalSales('2014', 5),
-      new OrdinalSales('2015', 25),
-      new OrdinalSales('2016', 100),
-      new OrdinalSales('2017', 75),
-    ];
+  List<charts.Series<Stars, String>> _createSampleData2() {
+    var graphData = List<Stars>();
 
-    final tableSalesDataA = [
-      new OrdinalSales('2014', 25),
-      new OrdinalSales('2015', 50),
-      new OrdinalSales('2016', 10),
-      new OrdinalSales('2017', 20),
-    ];
-
-    final mobileSalesDataA = [
-      new OrdinalSales('2014', 10),
-      new OrdinalSales('2015', 15),
-      new OrdinalSales('2016', 50),
-      new OrdinalSales('2017', 45),
-    ];
-
-    final desktopSalesDataB = [
-      new OrdinalSales('2014', 5),
-      new OrdinalSales('2015', 25),
-      new OrdinalSales('2016', 100),
-      new OrdinalSales('2017', 75),
-    ];
-
-    final tableSalesDataB = [
-      new OrdinalSales('2014', 25),
-      new OrdinalSales('2015', 50),
-      new OrdinalSales('2016', 10),
-      new OrdinalSales('2017', 20),
-    ];
-
-    final mobileSalesDataB = [
-      new OrdinalSales('2014', 10),
-      new OrdinalSales('2015', 15),
-      new OrdinalSales('2016', 50),
-      new OrdinalSales('2017', 45),
-    ];
+    stars.forEach((key, value) {
+      if (key.toString().length < 10) {
+        graphData.add(new Stars(key.toString(), value));
+      } else {
+        graphData
+            .add(new Stars(key.toString().substring(0, 10) + "...", value));
+      }
+    });
 
     return [
-      new charts.Series<OrdinalSales, String>(
-        id: 'Desktop A',
-        seriesCategory: 'A',
-        domainFn: (OrdinalSales sales, _) => sales.year,
-        measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: desktopSalesDataA,
-      ),
-      new charts.Series<OrdinalSales, String>(
-        id: 'Tablet A',
-        seriesCategory: 'A',
-        domainFn: (OrdinalSales sales, _) => sales.year,
-        measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: tableSalesDataA,
-      ),
-      new charts.Series<OrdinalSales, String>(
-        id: 'Mobile A',
-        seriesCategory: 'A',
-        domainFn: (OrdinalSales sales, _) => sales.year,
-        measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: mobileSalesDataA,
-      ),
-      new charts.Series<OrdinalSales, String>(
-        id: 'Desktop B',
-        seriesCategory: 'B',
-        domainFn: (OrdinalSales sales, _) => sales.year,
-        measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: desktopSalesDataB,
-      ),
-      new charts.Series<OrdinalSales, String>(
-        id: 'Tablet B',
-        seriesCategory: 'B',
-        domainFn: (OrdinalSales sales, _) => sales.year,
-        measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: tableSalesDataB,
-      ),
-      new charts.Series<OrdinalSales, String>(
-        id: 'Mobile B',
-        seriesCategory: 'B',
-        domainFn: (OrdinalSales sales, _) => sales.year,
-        measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: mobileSalesDataB,
-      ),
+      new charts.Series<Stars, String>(
+        id: 'Stars',
+        colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
+        domainFn: (Stars stars, _) => stars.name,
+        measureFn: (Stars stars, _) => stars.count,
+        data: graphData,
+      )
     ];
   }
 }
 
-class OrdinalSales {
-  final String year;
-  final int sales;
+class Stars {
+  final String name;
+  final int count;
 
-  OrdinalSales(this.year, this.sales);
+  Stars(this.name, this.count);
 }
