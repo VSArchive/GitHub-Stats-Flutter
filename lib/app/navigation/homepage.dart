@@ -17,7 +17,7 @@ class MaterialHomePage extends StatefulWidget {
 }
 
 class _MaterialHomePageState extends State<MaterialHomePage> {
-  var _currentPage = 1;
+  var _currentPage = 0;
   Widget _getBody(index, context) {
     final api = Provider.of<Api>(context);
     final cdatabase = Provider.of<List<CloudUserData>>(context);
