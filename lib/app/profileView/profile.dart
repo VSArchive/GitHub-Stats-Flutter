@@ -185,25 +185,25 @@ class ProfileFromSerach extends StatelessWidget {
                         ),
                       ),
                     ),
-                    CupertinoButton(
-                      minSize: 50,
-                      color: Color.fromRGBO(0, 122, 255, 1),
-                      child: Text(
-                        'Follow ',
-                        style: TextStyle(
-                            color: Color.fromRGBO(255, 255, 255, 1),
-                            fontFamily: 'SF-Pro-Text-Semibold',
-                            fontSize: 17),
-                      ),
-                      onPressed: () async {
-                        try {
-                          await api.followaUser(userName, authUsername);
-                          print('done');
-                        } catch (e) {
-                          print(e);
-                        }
-                      },
-                    ),
+                    // CupertinoButton(
+                    //   minSize: 50,
+                    //   color: Color.fromRGBO(0, 122, 255, 1),
+                    //   child: Text(
+                    //     'Follow ',
+                    //     style: TextStyle(
+                    //         color: Color.fromRGBO(255, 255, 255, 1),
+                    //         fontFamily: 'SF-Pro-Text-Semibold',
+                    //         fontSize: 17),
+                    //   ),
+                    //   onPressed: () async {
+                    //     try {
+                    //       await api.followaUser(userName, authUsername);
+                    //       print('done');
+                    //     } catch (e) {
+                    //       print(e);
+                    //     }
+                    //   },
+                    // ),
                   ],
                 ),
               ),
