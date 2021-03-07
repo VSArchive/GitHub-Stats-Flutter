@@ -16,3 +16,8 @@ saving the user cred in  firebase
 
 login with firebase feature
 
+testing all the functions amd api calls
+
+there were some loading latency which were fixed.
+
+and ui were implemented based on apple design guidelines.
